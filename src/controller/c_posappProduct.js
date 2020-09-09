@@ -3,7 +3,7 @@ const response = require('../helpers/h_response')
 const { failed } = require('../helpers/h_response')
 
 const c_posappProduct = {
-    getAll: (req,res)=>{
+      getAll: (req,res)=>{
         try {
             const name = !req.query.name?'':req.query.name
             const sorting = !req.query.sorting? null :req.query.sorting
@@ -31,7 +31,7 @@ const c_posappProduct = {
         }
         
     },
-
+    
     getProduct: (req,res)=>{
         try {
             const id = req.params.id
@@ -65,7 +65,7 @@ const c_posappProduct = {
         try {
             const id= req.params.id
             const body = req.body
-            body.image = req.file == undefined ? '' : req.file.filename
+            body.image = !req.file ? req.file : req.file.filename
             // console.log(body)
             m_posappProduct.updateProduct(body, id)
             .then((result)=>{

@@ -2,7 +2,7 @@ const db = require('../configs/db')
 const fs = require('fs')
 
 const m_posappProduct = {
-    getAll: (name,sorting,typesort,limit,offset)=>{
+      getAll: (name,sorting,typesort,limit,offset)=>{
         return new Promise((resolve, reject)=>{
             db.query(`SELECT *,
             (SELECT COUNT (*) FROM display_product) AS count 
@@ -54,25 +54,39 @@ const m_posappProduct = {
                 if(err){
                     reject(err)
                 }else{
+
+                  resolve(new Promise((resolve, reject)=>{
+                      let imagename = null
+                      if(!data.image){
+                            imagename = result[0].image
+                      }else {
+                        imagename = data.image  
+                        fs.unlink(`src/img/${result[0].image}`, (err)=>{
+                          if(err) throw err
+                          console.log('Sukses Delete')
+                          console.log(result[0].image)
+                      })
+                    }
+                    console.log(imagename)
                     
-                    resolve(new Promise((resolve, reject)=>{
-                        const imgOld = result[0].image 
-                        const imageNew = data.image
-                        if(imgOld !== imageNew){
-                            fs.unlink(`src/img/${imgOld}`, (err)=>{
-                                if(err){
-                                    console.log(`Data is already empty`)
-                                }
-                                console.log(`Delete image success`)
-                            })
-                        }
+                    // resolve(new Promise((resolve, reject)=>{
+                    //     const imgOld = result[0].image 
+                    //     const imageNew = data.image
+                    //     if(imgOld !== imageNew){
+                    //         fs.unlink(`src/img/${imgOld}`, (err)=>{
+                    //             if(err){
+                    //                 console.log(`Data is already empty`)
+                    //             }
+                    //             console.log(`Delete image success`)
+                    //         })
+                    //     }
                         
 
                         db.query(`UPDATE product SET
                             name_product='${data.name_product}',
                             price_product='${data.price_product}',
                             date_product='${data.date_product}',
-                            image='${imageNew}',
+                            image='${imagename}',
                             category_id='${data.category_id}'
                             WHERE id_product='${id}'`,(err, result)=>{
                                 if(err){
