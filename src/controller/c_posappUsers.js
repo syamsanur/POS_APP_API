@@ -66,7 +66,7 @@ const c_posappUsers = {
                     const id_users = resultUser.id_users
                     // console.log(id_users)
                     const tokenRefreshToken = jwt.sign({id_users}, env.JWTSECRETKEYREFRESH)
-                    console.log(tokenRefreshToken)
+                    // console.log(tokenRefreshToken)
                     m_posappUsers.updateRefreshToken(tokenRefreshToken, id_users)
                     .then(() => {
                       const data = {token: token, refreshToken: tokenRefreshToken}
@@ -97,7 +97,7 @@ const c_posappUsers = {
 
   logout: (req, res) => {
     const refreshToken = req.body.refreshToken
-    console.log(refreshToken)
+    // console.log(refreshToken)
     m_posappUsers.logout(refreshToken)
     .then((result)=>{
       response.success(res, result, `Logout`)
