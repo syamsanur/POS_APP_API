@@ -6,12 +6,20 @@ const storage = multer.diskStorage({
         cb(null, 'src/img')
     },
     filename: (req, file, cb)=>{
-        cb(null, `${file.originalname}-${Date.now()}`)
+        cb(null, `${Date.now()}-${file.originalname}`)
     }
 })
 
 const upload = multer({
-    storage
+    storage,
+    limits: {fieldSize: 1000},
+    fileFilter(req, file, callback){
+      if(file.originalname.match(/\.(jpg|jpeg|png)\b/)) {
+        callback(null, true)
+      }else{
+        callback('Wrong image type', null)
+      }
+    }
 })
 
 module.exports = upload

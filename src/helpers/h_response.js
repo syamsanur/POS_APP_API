@@ -28,7 +28,17 @@ const response = {
             data : data,
         }
         res.json(result)
-    }
+    },
+  //   token: (res, data, message)=>{
+  //     const result= {
+  //         message : message,
+  //         success : true,
+  //         code : 200,
+  //         data : data,
+  //     }
+  //     res.json(result)
+  // },
+  
 }
 
 module.exports = response
