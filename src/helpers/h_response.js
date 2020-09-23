@@ -7,6 +7,7 @@ const response = {
             data : data
         }
         res.json(result)
+        res.end()
     },
 
     failed: (res, data, message)=>{

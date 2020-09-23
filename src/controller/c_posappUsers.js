@@ -56,7 +56,7 @@ const c_posappUsers = {
                 email_users : resultUser.email_users
               },
               env.JWTSECRETKEY,
-              {expiresIn: 15},
+              {expiresIn: 3600},
               (err, token) => {
                 if(err){
                   failed(res, [], err)

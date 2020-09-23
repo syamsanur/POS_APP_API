@@ -27,6 +27,7 @@ module.exports = {
           const search = sort.filter(e => e.name_product.toLowerCase().includes(name.toLowerCase()))
           dataRedis = search
         }
+        
         res.send({
           message: 'Get data from Redis success',
           success: true,
@@ -52,9 +53,7 @@ module.exports = {
       const dataProduct = data.filter(e => e.id_product == id)
       // console.log(dataProduct)
       if(dataProduct.length !== 0){
-        res.send(
           response.success(res, dataProduct, `Get Product with id ${id} from redis success`)
-        )
       }else{
         next()
       }
