@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const env = require('../helpers/h_env')
+const {tokenResultExpired, tokenResultWrong} = require('../helpers/h_response')
 
 module.exports = {
   authentication: (req, res, next) => {
@@ -17,13 +18,9 @@ module.exports = {
     const token = req.headers.token
     jwt.verify(token, env.JWTSECRETKEY, (err, decoded) => {
       if(err && err.name === 'TokenExpiredError'){
-        res.send({
-          msg: `Token expired`
-        })
+        tokenResultExpired(res, [], 'Token expired')
       }else if(err && err.name === 'JsonWebTokenError'){
-        res.send({
-          msg: `Wrong token`
-        })
+        tokenResultWrong(res, [], 'Wrong Token')
       }else{
         next()
       }

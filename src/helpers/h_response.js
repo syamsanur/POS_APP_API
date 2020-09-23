@@ -30,16 +30,24 @@ const response = {
         }
         res.json(result)
     },
-  //   token: (res, data, message)=>{
-  //     const result= {
-  //         message : message,
-  //         success : true,
-  //         code : 200,
-  //         data : data,
-  //     }
-  //     res.json(result)
-  // },
-  
+    tokenResultExpired: (res, data, message)=>{
+      const result = {
+          message : message,
+          success : false,
+          code : 300,
+          data : data
+      }
+      res.status(405).json(result)
+  },
+  tokenResultWrong: (res, data, message)=>{
+    const result = {
+        message : message,
+        success : false,
+        code : 300,
+        data : data
+    }
+    res.status(500).json(result)
+},
 }
 
 module.exports = response
