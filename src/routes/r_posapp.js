@@ -40,6 +40,7 @@ router
     .get('/history/getall', auth.authentication, auth.authorization, redis.getAllHistory, c_posappHistory.getAll)
     .get('/history/getalldetail', auth.authentication, auth.authorization, redis.getAllDetail, c_posappHistory.getAllDetail)
     .get('/history/gethistory/:id', auth.authentication, auth.authorization, redis.getHistory, c_posappHistory.getHistory)
+    .get('/history/gethistoryproduct', auth.authentication, auth.authorization, c_posappHistory.getHistoryProduct)
     .post('/history/insert', auth.authentication, auth.authorization, c_posappHistory.insertHistory)
     .put('/history/update/:id', auth.authentication, auth.authorization, c_posappHistory.updateHistory)
     .delete('/history/delete/:id', auth.authentication, auth.authorization, c_posappHistory.terminateHistory)

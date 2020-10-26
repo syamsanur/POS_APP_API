@@ -81,6 +81,22 @@ const c_posappHistory = {
         
     },
 
+    getHistoryProduct : (req,res)=> {
+      try {
+          m_posappHistory.getHistoryProduct()
+          .then((result)=>{
+              response.success(res,result, `Get history with product success`)
+          })
+          .catch((err)=>{
+              response.failed(res, [], err.message)
+          })
+
+      } catch (error) {
+        failed(res, [], error)  
+      }
+      
+  },
+
     insertHistory : (req,res)=>{
         try {
             const body = req.body

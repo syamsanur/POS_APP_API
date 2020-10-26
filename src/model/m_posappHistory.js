@@ -48,6 +48,18 @@ const m_posappHistory = {
         })
     },
 
+    getHistoryProduct : ()=>{
+      return new Promise((resolve, reject)=>{
+          db.query(`SELECT * FROM history INNER JOIN history_detail ON history.id_history = history_detail.history_id `,(err,result)=>{
+              if(err){
+                  reject(new Error(err))
+              }else{
+                  resolve(result)
+              }
+          })
+      })
+  },
+
     insertHistory : (data)=>{
         return new Promise((resolve,reject)=>{
             db.query(`INSERT INTO history (invoices_history, cashier_history, amount_history) VALUES (
