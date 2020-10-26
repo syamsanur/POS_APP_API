@@ -1,8 +1,8 @@
 const m_posappCategory = require('../model/m_posappCategory')
 const response = require('../helpers/h_response')
 
-const redis = require('redis')
-const redisClient = redis.createClient()
+// const redis = require('redis')
+// const redisClient = redis.createClient()
 
 
 const c_posappCategory = {
@@ -17,7 +17,7 @@ const c_posappCategory = {
 
         m_posappCategory.getAll(name,sorting,typesort,limit,offset)
         .then((result)=>{
-          redisClient.set('category', JSON.stringify(result))
+          // redisClient.set('category', JSON.stringify(result))
             const totalData = result[0].count
             const meta = {
                 totalData : totalData,
@@ -56,7 +56,7 @@ const c_posappCategory = {
         const body = req.body
         m_posappCategory.insertCategory(body)
         .then((result)=>{
-            redisClient.del('category')
+            // redisClient.del('category')
             response.success(res, result, `Insert category success`)
         })
         .catch((err)=>{
@@ -74,7 +74,7 @@ const c_posappCategory = {
         const body = req.body
         m_posappCategory.updateCategory(body, id)
         .then((result)=>{
-            redisClient.del('category')
+            // redisClient.del('category')
             response.success(res, result, `Update category with id ${id} success`)
         })
         .catch((err)=>{
@@ -91,7 +91,7 @@ const c_posappCategory = {
         const id = req.params.id
         m_posappCategory.terminateCategory(id)
         .then((result)=>{
-            redisClient.del('category')
+            // redisClient.del('category')
             response.success(res, result, `Delete category with id ${id} success`)
         })
         .catch((err)=>{

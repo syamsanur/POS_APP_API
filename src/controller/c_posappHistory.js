@@ -2,8 +2,8 @@ const response = require('../helpers/h_response')
 const m_posappHistory = require('../model/m_posappHistory')
 const { failed } = require('../helpers/h_response')
 
-const redis = require('redis')
-const redisClient = redis.createClient()
+// const redis = require('redis')
+// const redisClient = redis.createClient()
 
 const c_posappHistory = {
     getAll : (req,res) =>{
@@ -17,7 +17,7 @@ const c_posappHistory = {
             
             m_posappHistory.getAll(name,sorting, typesort ,limit,offset)
             .then((result)=>{
-              redisClient.set('history', JSON.stringify(result))
+              // redisClient.set('history', JSON.stringify(result))
                 const totalData = result[0].count
                 const meta = {
                     totalData : totalData,
@@ -46,7 +46,7 @@ const c_posappHistory = {
           
           m_posappHistory.getAllDetail(name,sorting, typesort ,limit,offset)
           .then((result)=>{
-            redisClient.set('detail', JSON.stringify(result))
+            // redisClient.set('detail', JSON.stringify(result))
               const totalData = result[0].count
               const meta = {
                   totalData : totalData,
@@ -114,7 +114,7 @@ const c_posappHistory = {
                 }).catch(err => {
                   console.log(err)
                 })
-                redisClient.del('history')
+                // redisClient.del('history')
                 response.success(res, result, `Add history success`)
               })
             .catch((err)=>[
@@ -133,7 +133,7 @@ const c_posappHistory = {
             const body = req.body
             m_posappHistory.updateHistory(body, id)
             .then((result)=>{
-                redisClient.del('history')
+                // redisClient.del('history')
                 response.success(res, result, `Update history with id ${id} success`)
             })
             .catch((err)=>{
@@ -150,7 +150,7 @@ const c_posappHistory = {
             const id = req.params.id
             m_posappHistory.terminateHistory(id)
             .then((result)=>{
-                redisClient.del('history')
+                // redisClient.del('history')
                 response.success(res, result, `Delete history with id ${id} success`)
             })
             .catch((err)=>{
